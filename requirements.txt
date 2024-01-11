@@ -1,0 +1,6 @@
+pandas
+pyautogui
+selenium
+plotly
+ipykernel
+fsspec
