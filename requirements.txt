@@ -1,6 +1,8 @@
 pandas
+numpy
 pyautogui
 selenium
 plotly
 ipykernel
 fsspec
+scikit-learn
