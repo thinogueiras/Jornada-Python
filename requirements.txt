@@ -6,3 +6,4 @@ plotly
 ipykernel
 fsspec
 scikit-learn
+flet
