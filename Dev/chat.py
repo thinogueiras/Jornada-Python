@@ -3,7 +3,8 @@ from datetime import datetime
 
 
 def main(page):
-    title = ft.Text("ChAt Da GaLeRa")
+    chat_date = datetime.now().strftime('%d/%m/%Y')
+    title = ft.Text(f"ChAt Da GaLeRa: {chat_date}")
 
     chat = ft.Column()
 
@@ -14,13 +15,13 @@ def main(page):
     page.pubsub.subscribe(send_message_in_tunnel)
 
     def send_message(event):
-        message_field_text = f"{username.value}: {message_field.value}"
-        message_time = datetime.now().strftime('%d/%m/%Y %H:%M')
+        message_time = datetime.now().strftime('%H:%M')
+        message_field_text = f"{username.value} - {message_time}: \n{message_field.value}"
 
         if message_field.value == "":
             pass
         else:
-            page.pubsub.send_all(f'{message_time}: {message_field_text}')
+            page.pubsub.send_all(f'{message_field_text}')
 
         message_field.value = ""
         message_field.focus()
@@ -61,7 +62,8 @@ def main(page):
         popup.open = True
         page.update()
 
-    start_button = ft.ElevatedButton("Iniciar Chat", on_click=start_chat)
+    start_button = ft.ElevatedButton(
+        "Iniciar Chat", on_click=start_chat, autofocus=True)
 
     page.add(title)
     page.add(start_button)
