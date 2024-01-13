@@ -1,4 +1,5 @@
 import flet as ft
+from datetime import datetime
 
 
 def main(page):
@@ -14,18 +15,21 @@ def main(page):
 
     def send_message(event):
         message_field_text = f"{username.value}: {message_field.value}"
+        message_time = datetime.now().strftime('%d/%m/%Y %H:%M')
+
         if message_field.value == "":
             pass
         else:
-            page.pubsub.send_all(message_field_text)
+            page.pubsub.send_all(f'{message_time}: {message_field_text}')
 
         message_field.value = ""
+        message_field.focus()
         page.update()
 
     send_button = ft.ElevatedButton("Enviar", on_click=send_message)
 
     message_field = ft.TextField(
-        label="Escreva a sua mensagem aqui", on_submit=send_message)
+        label="Escreva a sua mensagem aqui", on_submit=send_message, autofocus=True)
 
     def enter_chat_button(event):
         popup.open = False
@@ -43,7 +47,7 @@ def main(page):
         page.update()
 
     username = ft.TextField(label="Escreva seu nome",
-                            on_submit=enter_chat_button)
+                            on_submit=enter_chat_button, autofocus=True)
 
     popup = ft.AlertDialog(
         open=False,
